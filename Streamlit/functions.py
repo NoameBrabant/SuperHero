@@ -6,9 +6,8 @@ import data
 
 characters_df = data.characters_df
 
-def fightbot(team1,team2, addons):
+def fightbot(team1,team2, addons, GOOGLE_API_KEY):
 
-    GOOGLE_API_KEY = "AIzaSyAUInTn58-g59nLNOgtpHBs2rgFyLyS1Q0"
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-2.0-flash')
 

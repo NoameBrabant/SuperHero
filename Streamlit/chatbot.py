@@ -28,7 +28,8 @@ for key, val in query_params_dict.items():
                     details = val
 
 
-GOOGLE_API_KEY = "AIzaSyAUInTn58-g59nLNOgtpHBs2rgFyLyS1Q0"
+GOOGLE_API_KEY = st.text_input("Entrez une clé API valide",type='password')
+
 genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-2.0-flash')
@@ -49,6 +50,6 @@ addons = st.text_area("Ajouter des details pour le combat",details)
 
 if st.button("Validez"):
 
-    st.write(fun.fightbot(team1,team2,addons))
+    st.write(fun.fightbot(team1,team2,addons,GOOGLE_API_KEY))
 
 
