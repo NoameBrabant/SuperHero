@@ -1,7 +1,11 @@
 ---
-title: Analyse exploratoire des données
+title: Superhero Data Dashboard
 ---
+<br/><br/>
+
 ### Cette page offre une visualisation globale des données, ces données sont mis à jours tous les x temps
+
+<br/><br/>
 
 
 ```sql global_cards
@@ -15,19 +19,19 @@ FROM lecsv.characters_df3
     data={global_cards}
     value=nb_heroes
     fmt=number0
-    title="Nombre de superhéros"
+    title="Heros Count"
     minWidth="200px"
 />
 <BigValue 
     data={global_cards} 
     value=nb_publishers
-    title="Nombre de maisons d'édition"
+    title="Publishers Count"
     minWidth="300px"
 />
 <BigValue 
     data={global_cards} 
     value=last_update
-    title="Dernière mise à jour"
+    title="Last Update"
     minWidth="100px"
 />
 
@@ -183,7 +187,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Force des superhéros"
+        title="Heros Strength"
     />
     <ScatterPlot
         data={best_heroes_CON}
@@ -192,7 +196,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Constitution des superhéros"
+        title="Heros Constitution"
     />
     <ScatterPlot
         data={best_heroes_INT}
@@ -201,7 +205,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Intelligence des superhéros"
+        title="Heros Intelligence"
     />
     <ScatterPlot
         data={best_heroes_WIS}
@@ -210,7 +214,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Sagesse des superhéros"
+        title="Heros Wisdom"
     />
     <ScatterPlot
         data={best_heroes_DEX}
@@ -219,7 +223,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Sagesse des superhéros"
+        title="Heros Dexterity"
     />
     <ScatterPlot
         data={best_heroes_CHA}
@@ -228,7 +232,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Sagesse des superhéros"
+        title="Hero Charisma"
     />
 </Grid>
 

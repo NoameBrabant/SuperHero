@@ -29,37 +29,54 @@ FROM lecsv.characters_df3
 WHERE Name LIKE '${inputs.hero.value}'
 ```
 
-<Grid cols=2>
+<Grid cols=2 style="min-height: 600px;">
     <Image 
-    url={hero_image[0].image_medium}    
-    description="Image du héros sélectionné" 
-    height=400
-    width=300
+        url={hero_image[0].image_medium}    
+        description="Image de l'opposant sélectionné" 
+        height=400
+        width=300
     />
     <ECharts config={
     {
         title: {
             text: 'Hero Stats',
+            top: '2%',
             left: 'center',
-            textStyle: { color: '#fff' } // ✅ Change la couleur du titre si nécessaire
+            textStyle: { 
+                color: '#fff',
+                fontSize: 16,
+                fontWeight: 'bold'
+            }
         },
         tooltip: {
             trigger: 'item',
             formatter: '{b}: {c}'
         },
-        color: ['#ff4d4d'],
+        color: ['#4d79ff'],
+        grid: {
+            top: '15%',
+            containLabel: true
+        },
         radar: {
+            center: ['50%', '55%'],
+            radius: '70%',
             indicator: [
                 { name: 'STR', max: 100 },
+                { name: 'CHA', max: 100 },
                 { name: 'DEX', max: 100 },
                 { name: 'CON', max: 100 },
                 { name: 'INT', max: 100 },
-                { name: 'WIS', max: 100 },
-                { name: 'CHA', max: 100 }
+                { name: 'WIS', max: 100 }
             ],
-            splitArea: { show: false }, // ✅ Supprime les zones grisées à l'intérieur
-            axisLine: { lineStyle: { color: '#fff' } }, // ✅ Change la couleur des axes
-            splitLine: { lineStyle: { color: '#fff' } }  // ✅ Change les lignes séparatrices
+            splitArea: { show: false },
+            axisLine: { lineStyle: { color: '#fff' } },
+            splitLine: { lineStyle: { color: '#fff' } },
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                }
+            }
         },
         series: [
             {
@@ -68,17 +85,21 @@ WHERE Name LIKE '${inputs.hero.value}'
                     {
                         value: hero_stats.map(item => item.value),
                         name: inputs.hero.value,
-                        areaStyle: { color: 'rgba(255, 77, 77, 0.4)' },
-                        lineStyle: { color: '#ff4d4d', width: 2 },
+                        areaStyle: { color: 'rgba(77, 121, 255, 0.4)' },
+                        lineStyle: { color: '#4d79ff', width: 2 },
                         symbol: 'circle',
-                        itemStyle: { color: '#ff4d4d' }
+                        symbolSize: 6,
+                        itemStyle: { color: '#4d79ff' }
                     }
                 ]
             }
         ]
-    }
-    }/>
-    
+    }}
+    style={{
+        height: '500px',
+        width: '100%'
+    }}
+    />
 </Grid>
 
 
@@ -125,56 +146,78 @@ FROM lecsv.characters_df3
 WHERE Name LIKE '${inputs.ennemi.value}'
 ```
 
-<Grid cols=2>
-<Image 
-url={ennemi_image[0].image_medium}    
-description="Image du héros sélectionné" 
-height=400
-width=300
-/>
-<ECharts config={
-{
-    title: {
-        text: 'ennemi Stats',
-        left: 'center',
-        textStyle: { color: '#fff' }
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c}'
-    },
-    color: ['#ff4d4d'],
-    radar: {
-        indicator: [
-            { name: 'STR', max: 100 },
-            { name: 'DEX', max: 100 },
-            { name: 'CON', max: 100 },
-            { name: 'INT', max: 100 },
-            { name: 'WIS', max: 100 },
-            { name: 'CHA', max: 100 }
-        ],
-        splitArea: { show: false }, 
-        axisLine: { lineStyle: { color: '#fff' } }, 
-        splitLine: { lineStyle: { color: '#fff' } }
-    },
-    series: [
-        {
-            type: 'radar',
-            data: [
-                {
-                    value: ennemi_stats.map(item => item.value),
-                    name: inputs.enemi.value,
-                    areaStyle: { color: 'rgba(255, 77, 77, 0.4)' },
-                    lineStyle: { color: '#ff4d4d', width: 2 },
-                    symbol: 'circle',
-                    itemStyle: { color: '#ff4d4d' }
-                }
-            ]
-        }
-    ]
-}
-}/>
 
+<Grid cols=2 style="min-height: 600px;">
+    <Image 
+        url={ennemi_image[0].image_medium}    
+        description="Image de l'opposant sélectionné" 
+        height=400
+        width=300
+    />
+    <ECharts config={
+    {
+        title: {
+            text: 'Opponent Stats',
+            top: '2%',
+            left: 'center',
+            textStyle: { 
+                color: '#fff',
+                fontSize: 16,
+                fontWeight: 'bold'
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c}'
+        },
+        color: ['#4d79ff'],
+        grid: {
+            top: '15%',
+            containLabel: true
+        },
+        radar: {
+            center: ['50%', '55%'],
+            radius: '70%',
+            indicator: [
+                { name: 'STR', max: 100 },
+                { name: 'CHA', max: 100 },
+                { name: 'DEX', max: 100 },
+                { name: 'CON', max: 100 },
+                { name: 'INT', max: 100 },
+                { name: 'WIS', max: 100 }
+            ],
+            splitArea: { show: false },
+            axisLine: { lineStyle: { color: '#fff' } },
+            splitLine: { lineStyle: { color: '#fff' } },
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                }
+            }
+        },
+        series: [
+            {
+                type: 'radar',
+                data: [
+                    {
+                        value: ennemi_stats.map(item => item.value),
+                        name: inputs.ennemi.value,
+                        areaStyle: { color: 'rgba(77, 121, 255, 0.4)' },
+                        lineStyle: { color: '#4d79ff', width: 2 },
+                        symbol: 'circle',
+                        symbolSize: 6,
+                        itemStyle: { color: '#4d79ff' }
+                    }
+                ]
+            }
+        ]
+    }}
+    style={{
+        height: '500px',
+        width: '100%'
+    }}
+    />
 </Grid>
 
 ```sql ennemi_description
