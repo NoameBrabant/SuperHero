@@ -18,9 +18,11 @@ jobs:
           cache-dependency-path: viz/package-
 
       - name: Install dependencies
+         working-directory: viz
         run: npm install
 
       - name: build
+        working-directory: viz
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
           ## Add and uncomment any environment variables here
