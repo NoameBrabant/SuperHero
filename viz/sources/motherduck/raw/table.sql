@@ -1,0 +1,1 @@
+select * from characters_db.main.characters_df3
