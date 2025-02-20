@@ -73,4 +73,4 @@ plugins:
     "@evidence-dev/motherduck": { }
 
 deployment:
-  basePath: /SuperHero/tree/main/viz
+  basePath: /SuperHero
