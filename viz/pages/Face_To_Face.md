@@ -1,38 +1,37 @@
 ```sql heros
 SELECT
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
 ```
 
-<h1 style="text-align: center;">Choose your hero</h1>
-
+<h1 style="text-align: center;">Choose your character</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
 <Dropdown 
     data={heros} 
     name=hero
     value=name_char
+    defaultValue="Batman"
 />
+</div>
 
 ```sql hero_stats
 SELECT stat, value
-FROM lecsv.characters_df3
+FROM motherduck.table
 UNPIVOT (
     value FOR stat IN (STR, CHA, DEX, CON, INT, WIS)
 )
 WHERE Name like '${inputs.hero.value}'
 ```
 
-
-
 ```sql hero_image
 SELECT image_medium
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name LIKE '${inputs.hero.value}'
 ```
 
 <Grid cols=2 style="min-height: 600px;">
     <Image 
-        url={hero_image[0].image_medium}    
-        description="Image de l'opposant sélectionné" 
+        url={hero_image[0].image_medium} 
         height=400
         width=300
     />
@@ -105,7 +104,7 @@ WHERE Name LIKE '${inputs.hero.value}'
 
 ```sql hero_description
 SELECT Deck
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name LIKE '${inputs.hero.value}'
 ```
 <br/><br/>
@@ -117,7 +116,7 @@ WHERE Name LIKE '${inputs.hero.value}'
     
 ```sql ennemi_stats
 SELECT stat, value
-FROM lecsv.characters_df3
+FROM motherduck.table
 UNPIVOT (
     value FOR stat IN (STR, CHA, DEX, CON, INT, WIS)
 )
@@ -127,30 +126,30 @@ WHERE Name like '${inputs.ennemi.value}'
 ```sql ennemi
 SELECT
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
 ```
-<br/><br/>
 <br/><br/>
 
 <h1 style="text-align: center;">Choose an oppenent</h1>
-
+<div style="display: flex; justify-content: center; align-items: center;">
 <Dropdown 
     data={ennemi} 
     name=ennemi
     value=name_char
+    defaultValue="Superman"
 />
+</div>
 
 ```sql ennemi_image
 SELECT image_medium
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name LIKE '${inputs.ennemi.value}'
 ```
 
 
 <Grid cols=2 style="min-height: 600px;">
     <Image 
-        url={ennemi_image[0].image_medium}    
-        description="Image de l'opposant sélectionné" 
+        url={ennemi_image[0].image_medium} 
         height=400
         width=300
     />
@@ -222,7 +221,7 @@ WHERE Name LIKE '${inputs.ennemi.value}'
 
 ```sql ennemi_description
 SELECT Deck
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name LIKE '${inputs.ennemi.value}'
 ```
 <br/><br/>
@@ -230,16 +229,19 @@ WHERE Name LIKE '${inputs.ennemi.value}'
 
 ```sql hero_numb
 SELECT STR, DEX, CON, INT, WIS, CHA
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name like '${inputs.hero.value}'
 ```
 
 ```sql ennemi_numb
 SELECT STR, DEX, CON, INT, WIS, CHA
-FROM lecsv.characters_df3
+FROM motherduck.table
 WHERE Name like '${inputs.ennemi.value}'
 ```
 
-
-
-
+<div style="display: flex; justify-content: center; align-items: center;">
+  <LinkButton 
+    url='https://superfight.streamlit.app/chatbot?tm1={inputs.hero.value}&o1={inputs.ennemi.value}'>
+    FIGHT !!!
+  </LinkButton>
+</div>

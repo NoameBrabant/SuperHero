@@ -6,27 +6,19 @@ theme:
   colorPalettes:
     default:
       light:
-        - "#236aa4"
-        - "#45a1bf"
-        - "#a5cdee"
-        - "#8dacbf"
-        - "#85c7c6"
-        - "#d2c6ac"
-        - "#f4b548"
-        - "#8f3d56"
-        - "#71b9f4"
-        - "#46a485"
+        - "#930F07"
+        - "#DB2727"
+        - "#4D1518"
+        - "#C5FDFA"
+        - "#2F648E"
+        - "#21324B"
       dark:
-        - "#236aa4"
-        - "#45a1bf"
-        - "#a5cdee"
-        - "#8dacbf"
-        - "#85c7c6"
-        - "#d2c6ac"
-        - "#f4b548"
-        - "#8f3d56"
-        - "#71b9f4"
-        - "#46a485"
+        - "#930F07"
+        - "#DB2727"
+        - "#4D1518"
+        - "#C5FDFA"
+        - "#2F648E"
+        - "#21324B"
   colorScales:
     default:
       light:

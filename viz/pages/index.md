@@ -1,25 +1,30 @@
 ---
-title: Superhero Data Dashboard
+title: Characters Data Dashboard
 ---
 <br/><br/>
 
-### Cette page offre une visualisation globale des données, ces données sont mis à jours tous les x temps
 
-<br/><br/>
-
+```sql test_connection
+SELECT
+    *
+FROM motherduck.table
+LIMIT 5
+```
+<!-- sample_data.hn.hacker_news -->
+<!-- characters_db.main.characters_df3 -->
 
 ```sql global_cards
 SELECT
     COUNT(*) as nb_heroes,
     COUNT(DISTINCT publisher) as nb_publishers,
     MAX(Date_last_updated) as last_update
-FROM lecsv.characters_df3
+FROM motherduck.table
 ```
 <BigValue
     data={global_cards}
     value=nb_heroes
     fmt=number0
-    title="Heros Count"
+    title="Characters Count"
     minWidth="200px"
 />
 <BigValue 
@@ -34,10 +39,14 @@ FROM lecsv.characters_df3
     title="Last Update"
     minWidth="100px"
 />
+<br/><br/>
+
+
 
 ```sql superhero_per_publisher
 SELECT publisher as name, COUNT(*) as value
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 GROUP BY publisher
 HAVING publisher != 'NA'
 LIMIT 5
@@ -47,7 +56,8 @@ LIMIT 5
 SELECT
     Gender as gender,
     COUNT(*) as nb_superhero
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 GROUP BY gender
 ```
 
@@ -55,32 +65,32 @@ GROUP BY gender
 SELECT
     Name as name,
     Count_of_issue_appearances as value
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ORDER BY Count_of_issue_appearances DESC
 LIMIT 5
 ```
 
 <Grid cols=2>
-    <ECharts config={
-    {
-        tooltip: {
-            formatter: '{b}: {c} ({d}%)'
-        },
-      series: [
-        {
-          type: 'pie',
-          radius: ['40%', '70%'],
-          data: issue_apparence_repartition,
-        }
-      ]
-      }
-    }
+    <BarChart
+        
+        data={issue_apparence_repartition}
+        x=name
+        y=value
+        title="Top 5 characters appearances"
+        swapXY=true
+        colorPalette={[
+        ["#1d4ed8", "#2F648E"],
+    ]}
     />
 
     <ECharts config={
     {
         tooltip: {
             formatter: '{b}: {c} ({d}%)'
+        },
+        title: {
+            text: 'publisher repartition',
         },
       series: [
         {
@@ -94,11 +104,13 @@ LIMIT 5
     />
 </Grid>
 
+
 ```sql nb_superhero_created_per_decade
 SELECT
     YEAR("First Appearance Date") - (YEAR("First Appearance Date") % 10) AS decade,
     COUNT(*) as nb_superhero
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 GROUP BY decade
 ORDER BY decade
 ```
@@ -106,18 +118,22 @@ ORDER BY decade
     data={nb_superhero_created_per_decade}
     x=decade
     y=nb_superhero
-/>
-
-
+    colorPalette={[
+        ["#1d4ed8", "#2F648E"],
+    ]}
+    title="Characters created per decade"
 />
 
  ```sql best_heroes_STR
 SELECT 
     Name as name_char, 
     STR as STR,
-    (SELECT AVG(STR) FROM lecsv.characters_df3) as mean_STR
-FROM lecsv.characters_df3
-WHERE STR = (SELECT MAX(STR) FROM lecsv.characters_df3)
+    (SELECT AVG(STR) FROM motherduck.table
+) as mean_STR
+FROM motherduck.table
+
+WHERE STR = (SELECT MAX(STR) FROM motherduck.table
+)
 order by Mean_Stats DESC
 LIMIT 1
 ```
@@ -127,7 +143,8 @@ SELECT
     mean_stats as Mean_Stats, 
     STR,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_DEX
@@ -135,7 +152,8 @@ SELECT
     mean_stats as Mean_Stats, 
     DEX,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_CON
@@ -143,7 +161,8 @@ SELECT
     mean_stats as Mean_Stats, 
     CON,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_INT
@@ -151,7 +170,8 @@ SELECT
     mean_stats as Mean_Stats, 
     INT,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_WIS
@@ -159,7 +179,8 @@ SELECT
     mean_stats as Mean_Stats, 
     WIS,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_DEX
@@ -167,7 +188,8 @@ SELECT
     mean_stats as Mean_Stats, 
     DEX,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
+
 ```
 
 ```sql best_heroes_CHA
@@ -175,7 +197,7 @@ SELECT
     mean_stats as Mean_Stats, 
     CHA,
     Name as name_char
-FROM lecsv.characters_df3
+FROM motherduck.table
 ```
 
 
@@ -187,7 +209,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Heros Strength"
+        title="Characters Strength"
     />
     <ScatterPlot
         data={best_heroes_CON}
@@ -196,7 +218,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Heros Constitution"
+        title="Characters Constitution"
     />
     <ScatterPlot
         data={best_heroes_INT}
@@ -205,7 +227,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Heros Intelligence"
+        title="Characters Intelligence"
     />
     <ScatterPlot
         data={best_heroes_WIS}
@@ -214,7 +236,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Heros Wisdom"
+        title="Characters Wisdom"
     />
     <ScatterPlot
         data={best_heroes_DEX}
@@ -223,7 +245,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Heros Dexterity"
+        title="Characters Dexterity"
     />
     <ScatterPlot
         data={best_heroes_CHA}
@@ -232,7 +254,7 @@ FROM lecsv.characters_df3
         tooltipTitle=name_char
         fmtX=number0
         fmtY=number0
-        title="Hero Charisma"
+        title="Charcters Charisma"
     />
 </Grid>
 
