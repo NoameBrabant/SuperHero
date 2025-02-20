@@ -1,8 +1,4 @@
 # This file was automatically generated
-type: motherduck
 name: motherduck
-options:
-  database: characters_db
-# Advanced Options, you probably don't want to change this
-buildOptions:
-  batchSize: 1000000
+type: motherduck
+options: {}
