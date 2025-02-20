@@ -15,16 +15,13 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: viz/package-lock.json
 
       - name: Install dependencies
-        working-directory: viz
         run: npm install
 
       - name: build
-        working-directory: viz
         env:
-          BASE_PATH: /viz
+          BASE_PATH: '/${{ github.event.repository.name }}'
           ## Add and uncomment any environment variables here
           ## EVIDENCE_SOURCE__my_source__username: ${{ secrets.EVIDENCE_SOURCE__MY_SOURCE__USERNAME }}
           ## EVIDENCE_SOURCE__my_source__private_key: ${{ secrets.EVIDENCE_SOURCE__MY_SOURCE__PRIVATE_KEY }}
@@ -35,7 +32,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/viz'
+          path: 'build/${{ github.event.repository.name }}'
 
   deploy:
     needs: build
