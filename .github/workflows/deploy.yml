@@ -17,9 +17,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        working-directory: viz
         run: npm install
 
       - name: build
+        working-directory: viz
         env:
           BASE_PATH: /viz
           ## Add and uncomment any environment variables here
